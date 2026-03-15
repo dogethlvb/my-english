@@ -228,20 +228,19 @@ function renderAll() {
 function setTag(t) { activeTag = t; renderAll(); }
 
 // ── 드래그 ──
-var dragId = null, dragging = false, lpTimer = null, touchStartY = 0, touchStartX = 0;
+var dragId = null, dragging = false, lpTimer = null, touchStartY = 0;
 
 function initDrag() {
-  document.querySelectorAll('[data-drag]').forEach(function(handle) {
-    handle.addEventListener('touchstart', function(e) {
-      var id = parseInt(handle.dataset.drag);
+  document.querySelectorAll('.card').forEach(function(card) {
+    card.addEventListener('touchstart', function(e) {
+      var id = parseInt(card.dataset.id);
       touchStartY = e.touches[0].clientY;
-      touchStartX = e.touches[0].clientX;
       lpTimer = setTimeout(function() {
         startDrag(id, e.touches[0].clientY);
-      }, 200);
+      }, 400);
     }, { passive: true });
 
-    handle.addEventListener('touchmove', function(e) {
+    card.addEventListener('touchmove', function(e) {
       if (!dragging) {
         var dy = Math.abs(e.touches[0].clientY - touchStartY);
         if (dy > 8) clearTimeout(lpTimer);
@@ -251,7 +250,7 @@ function initDrag() {
       moveDrag(e.touches[0].clientY);
     }, { passive: false });
 
-    handle.addEventListener('touchend', function() {
+    card.addEventListener('touchend', function() {
       clearTimeout(lpTimer);
       if (dragging) endDrag();
     });
