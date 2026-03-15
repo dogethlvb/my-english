@@ -179,7 +179,7 @@ function cardInnerHTML(c) {
     (c.pronounce ? '<div class="expr-pronounce">(' + c.pronounce + ')</div>' : '') +
     '<div class="divider"></div>' +
     '<div class="expr-meaning">👉 ' + c.meaning + '</div>' +
-    (c.memo ? '<div class="expr-memo">' + c.memo + '</div>' : '');
+          (c.memo ? '<div class="expr-memo" style="white-space:pre-wrap">' + c.memo + '</div>' : '');
 }
 
 function renderAll() {
