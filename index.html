@@ -186,7 +186,9 @@ function renderAll() {
   var q = document.getElementById('searchInput').value.toLowerCase();
   var filtered = cards.filter(function(c) {
     var okTag = activeTag === '전체' || c.tags.indexOf(activeTag) !== -1;
-    var okQ = !q || (c.chunked||'').toLowerCase().includes(q) || (c.pronounce||'').toLowerCase().includes(q) || (c.meaning||'').toLowerCase().includes(q);
+    function norm(s) { return (s||'').toLowerCase().replace(/[''`]/g,''); }
+    var nq = norm(q);
+    var okQ = !q || norm(c.chunked).includes(nq) || norm(c.pronounce).includes(nq) || norm(c.meaning).includes(nq);
     return okTag && okQ;
   });
   document.getElementById('countEl').textContent = filtered.length + ' expressions';
