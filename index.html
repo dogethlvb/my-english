@@ -186,7 +186,7 @@ function renderAll() {
   var q = document.getElementById('searchInput').value.toLowerCase();
   var filtered = cards.filter(function(c) {
     var okTag = activeTag === '전체' || c.tags.indexOf(activeTag) !== -1;
-    function norm(s) { return (s||'').toLowerCase().replace(/[''`]/g,''); }
+    function norm(s) { return (s||'').toLowerCase().replace(/[^a-z0-9가-힣\s]/g,''); }
     var nq = norm(q);
     var okQ = !q || norm(c.chunked).includes(nq) || norm(c.pronounce).includes(nq) || norm(c.meaning).includes(nq);
     return okTag && okQ;
